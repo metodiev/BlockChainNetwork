@@ -13,7 +13,8 @@ public class Transaction {
     inedInBlockIndex: integer / null TransferSuccessful: bool*/
 
 
-    private String address;
+    private String fromAddress;
+    private String toAddress;
     private int value;
     private int fee;
     private String dateCreated;
@@ -24,8 +25,13 @@ public class Transaction {
     private int inedInBlockIndex;
     private boolean transerSuccessful;
 
-    public Transaction(String address, int value, int fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, int inedInBlockIndex, boolean transerSuccessful) {
-        this.address = address;
+
+    public Transaction()
+    {}
+
+    public Transaction(String fromAddress, String toAddress, int value, int fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, int inedInBlockIndex, boolean transerSuccessful) {
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
         this.value = value;
         this.fee = fee;
         this.dateCreated = dateCreated;
@@ -37,12 +43,20 @@ public class Transaction {
         this.transerSuccessful = transerSuccessful;
     }
 
-    public String getAddress() {
-        return address;
+    public String getFromAddress() {
+        return fromAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    public String getToAddress() {
+        return toAddress;
+    }
+
+    public void setToAddress(String toAddress) {
+        this.toAddress = toAddress;
     }
 
     public int getValue() {

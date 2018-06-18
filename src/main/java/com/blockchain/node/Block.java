@@ -15,6 +15,7 @@ public class Block {
     BlockHash: hex_number[64]*/
 
     private int index;
+
     private ArrayList<Transaction> transaction;
     private int difficulty;
     private String prevBlockHash;
@@ -23,8 +24,14 @@ public class Block {
     private int nonce;
     private String dateCreated;
     private  String blockHash;
+    private String [] pendingTransactions;
 
-    public Block(int index, ArrayList<Transaction> transaction, int difficulty, String prevBlockHash, String minedBy, String blockDataHash, int nonce, String dateCreated, String blockHash) {
+
+
+
+public Block () {}
+
+    public Block(int index, ArrayList<Transaction> transaction, int difficulty, String prevBlockHash, String minedBy, String blockDataHash, int nonce, String dateCreated, String blockHash, String[] pendingTransactions) {
         this.index = index;
         this.transaction = transaction;
         this.difficulty = difficulty;
@@ -34,6 +41,7 @@ public class Block {
         this.nonce = nonce;
         this.dateCreated = dateCreated;
         this.blockHash = blockHash;
+        this.pendingTransactions = pendingTransactions;
     }
 
 
@@ -107,5 +115,13 @@ public class Block {
 
     public void setBlockHash(String blockHash) {
         this.blockHash = blockHash;
+    }
+
+    public String[] getPendingTransactions() {
+        return pendingTransactions;
+    }
+
+    public void setPendingTransactions(String[] pendingTransactions) {
+        this.pendingTransactions = pendingTransactions;
     }
 }
