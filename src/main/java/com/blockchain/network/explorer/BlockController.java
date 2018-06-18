@@ -17,7 +17,7 @@ public class BlockController {
 
     @RequestMapping("/greeting")
     public String greeting() {
-        return "asdfasdf";
+        return "asdasdasdasd";
     }
 
 
