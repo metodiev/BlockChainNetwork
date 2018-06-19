@@ -1,33 +1,48 @@
 package com.blockchain.node.core;
 
-import com.blockchain.node.Transaction;
+import com.blockchain.node.data.Transaction;
 
 import java.text.DateFormat;
 
 public class TransactionConnector {
 
-    public Transaction genesisTransaction (String fromAddress,int value,int blockIndex){
+    /***
+     *
+     * @param fromAddress
+     * @param value
+     * @param blockIndex
+     * @return
+     */
+    public Transaction genesisTransaction(String fromAddress, int value, int blockIndex) {
         fromAddress = "0000000000000000000000000000000000000000";
         value = 1000;
         blockIndex = 0;
         Transaction transaction = new Transaction();
         transaction.setFromAddress(fromAddress);
-      //TO DO SEND MONEY TO FAUCET  transaction.setToAddress("");
+        //TO DO SEND MONEY TO FAUCET  transaction.setToAddress("");
         transaction.setValue(value);
         transaction.setDateCreated(DateFormat.getDateInstance().toString());
-         transaction.setData("genesis tx");
-         transaction.setSenderPubkey(fromAddress);
-         //TO DO SET TRANSACTION DATA HASHtransaction.setTransactionDataHash("");
+        transaction.setData("genesis tx");
+        transaction.setSenderPubkey(fromAddress);
+        //TO DO SET TRANSACTION DATA HASHtransaction.setTransactionDataHash("");
         transaction.setInedInBlockIndex(blockIndex);
         //TO DO CONFIRM TRANSACTION transaction.setTranserSuccessful();
 
-    return transaction;
+        return transaction;
     }
 
-    public  void pendingTransaction (String fromAddress,String toAddress,int value, int fee,String dataHash,String senderSignature)
-    {
+    /***
+     *
+     * @param fromAddress
+     * @param toAddress
+     * @param value
+     * @param fee
+     * @param dataHash
+     * @param senderSignature
+     */
+    public void pendingTransaction(String fromAddress, String toAddress, int value, int fee, String dataHash, String senderSignature) {
         Transaction transaction = new Transaction();
-    //TO DO See if the money in the fauce Exceeds the money that are in transfers/exchange
+        //TO DO See if the money in the fauce Exceeds the money that are in transfers/exchange
         transaction.setFromAddress(fromAddress);
         transaction.setToAddress(toAddress);
         transaction.setValue(value);
@@ -40,8 +55,21 @@ public class TransactionConnector {
         transaction.setSenderSignature(senderSignature);
 
     }
-    public Transaction confirmedTransaction(String from,String to,int value,int fee,String senderPubKey,String transactionDataHash,String senderSignature,int minedBlockIndex,boolean transactionSuccessfull)
-    {
+
+    /***
+     *
+     * @param from
+     * @param to
+     * @param value
+     * @param fee
+     * @param senderPubKey
+     * @param transactionDataHash
+     * @param senderSignature
+     * @param minedBlockIndex
+     * @param transactionSuccessfull
+     * @return
+     */
+    public Transaction confirmedTransaction(String from, String to, int value, int fee, String senderPubKey, String transactionDataHash, String senderSignature, int minedBlockIndex, boolean transactionSuccessfull) {
         Transaction transaction = new Transaction();
         transaction.setFromAddress(from);
         transaction.setToAddress(to);
@@ -57,10 +85,6 @@ public class TransactionConnector {
         return transaction;
 
     }
-
-
-
-
 
 
 }

@@ -1,7 +1,5 @@
 package com.blockchain.node.data;
 
-import com.blockchain.node.Block;
-
 import java.util.LinkedList;
 
 public class NodeData {

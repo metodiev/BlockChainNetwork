@@ -1,4 +1,4 @@
-package com.blockchain.node;
+package com.blockchain.node.data;
 
 public class Transaction {
 

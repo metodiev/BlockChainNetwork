@@ -1,9 +1,7 @@
 package com.blockchain.node.data;
 
-import com.blockchain.node.Block;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Node {
@@ -24,12 +22,14 @@ public class Node {
    private String nodeId;
    private String selfUrl;
    private Map<String, String> peers;
-   private LinkedList<Block> blocks;
+   private List<Block> blocks;
    private ArrayList<String> restEndPoints;
 
 
+public  Node(){
 
-    public Node(String nodeId, String selfUrl, Map<String, String> peers, LinkedList<Block> blocks) {
+}
+    public Node(String nodeId, String selfUrl, Map<String, String> peers, List<Block> blocks) {
         this.nodeId = nodeId;
         this.selfUrl = selfUrl;
         this.peers = peers;
@@ -60,11 +60,11 @@ public class Node {
         this.peers = peers;
     }
 
-    public LinkedList<Block> getBlocks() {
+    public List<Block> getBlocks() {
         return blocks;
     }
 
-    public void setBlocks(LinkedList<Block> blocks) {
+    public void setBlocks(List<Block> blocks) {
         this.blocks = blocks;
     }
 
