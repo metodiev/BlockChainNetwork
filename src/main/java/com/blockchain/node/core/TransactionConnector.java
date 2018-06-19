@@ -40,7 +40,23 @@ public class TransactionConnector {
         transaction.setSenderSignature(senderSignature);
 
     }
+    public Transaction confirmedTransaction(String from,String to,int value,int fee,String senderPubKey,String transactionDataHash,String senderSignature,int minedBlockIndex,boolean transactionSuccessfull)
+    {
+        Transaction transaction = new Transaction();
+        transaction.setFromAddress(from);
+        transaction.setToAddress(to);
+        transaction.setValue(value);
+        transaction.setFee(fee);
+        transaction.setDateCreated(DateFormat.getDateInstance().toString());
+        transaction.setSenderPubkey(senderPubKey);
+        transaction.setTransactionDataHash(transactionDataHash);
+        transaction.setSenderSignature(senderSignature);
+        transaction.setMinedBlockIndex(minedBlockIndex);
+        transaction.setTranserSuccessful(transactionSuccessfull);
 
+        return transaction;
+
+    }
 
 
 

@@ -24,12 +24,9 @@ public class Transaction {
     private String  senderSignature;
     private int inedInBlockIndex;
     private boolean transerSuccessful;
+    private int minedBlockIndex;
 
-
-    public Transaction()
-    {}
-
-    public Transaction(String fromAddress, String toAddress, int value, int fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, int inedInBlockIndex, boolean transerSuccessful) {
+    public Transaction(String fromAddress, String toAddress, int value, int fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, int inedInBlockIndex, boolean transerSuccessful, int minedBlockIndex) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.value = value;
@@ -41,7 +38,12 @@ public class Transaction {
         this.senderSignature = senderSignature;
         this.inedInBlockIndex = inedInBlockIndex;
         this.transerSuccessful = transerSuccessful;
+        this.minedBlockIndex = minedBlockIndex;
     }
+
+    public Transaction()
+    {}
+
 
     public String getFromAddress() {
         return fromAddress;
@@ -129,5 +131,13 @@ public class Transaction {
 
     public void setTranserSuccessful(boolean transerSuccessful) {
         this.transerSuccessful = transerSuccessful;
+    }
+
+    public int getMinedBlockIndex() {
+        return minedBlockIndex;
+    }
+
+    public void setMinedBlockIndex(int minedBlockIndex) {
+        this.minedBlockIndex = minedBlockIndex;
     }
 }
