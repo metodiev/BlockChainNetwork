@@ -2,7 +2,8 @@ package com.blockchain.node.data;
 
 public class Transaction {
 
- /*   From: address (40 hex digits) To: address (40 hex digits)
+ /*   From: address (40 hex digits)
+  To: address (40 hex digits)
     Value: integer (non-negative)
     Fee: integer (non-negative)
     DateCreated: ISO8601_string
@@ -15,18 +16,18 @@ public class Transaction {
 
     private String fromAddress;
     private String toAddress;
-    private int value;
-    private int fee;
+    private long value;
+    private long fee;
     private String dateCreated;
     private String data;
     private String senderPubkey;
     private String transactionDataHash;
     private String  senderSignature;
-    private int inedInBlockIndex;
+    private long inedInBlockIndex;
     private boolean transerSuccessful;
-    private int minedBlockIndex;
+    private long minedBlockIndex;
 
-    public Transaction(String fromAddress, String toAddress, int value, int fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, int inedInBlockIndex, boolean transerSuccessful, int minedBlockIndex) {
+    public Transaction(String fromAddress, String toAddress, long value, long fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.value = value;
@@ -61,19 +62,19 @@ public class Transaction {
         this.toAddress = toAddress;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(long value) {
         this.value = value;
     }
 
-    public int getFee() {
+    public long getFee() {
         return fee;
     }
 
-    public void setFee(int fee) {
+    public void setFee(long fee) {
         this.fee = fee;
     }
 
@@ -117,11 +118,11 @@ public class Transaction {
         this.senderSignature = senderSignature;
     }
 
-    public int getInedInBlockIndex() {
+    public long getInedInBlockIndex() {
         return inedInBlockIndex;
     }
 
-    public void setInedInBlockIndex(int inedInBlockIndex) {
+    public void setInedInBlockIndex(long inedInBlockIndex) {
         this.inedInBlockIndex = inedInBlockIndex;
     }
 
@@ -133,11 +134,11 @@ public class Transaction {
         this.transerSuccessful = transerSuccessful;
     }
 
-    public int getMinedBlockIndex() {
+    public long getMinedBlockIndex() {
         return minedBlockIndex;
     }
 
-    public void setMinedBlockIndex(int minedBlockIndex) {
+    public void setMinedBlockIndex(long minedBlockIndex) {
         this.minedBlockIndex = minedBlockIndex;
     }
 }

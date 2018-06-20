@@ -111,7 +111,7 @@ public class TransactionVerification {
      */
     public boolean isValidTransactionInput(Transaction transaction) {
         boolean isValid = true;
-        if (!Character.isDigit(transaction.getInedInBlockIndex())) {
+      /*  if (!Character.isDigit(transaction.getInedInBlockIndex())) {
 
             isValid = false;
         }
@@ -126,7 +126,7 @@ public class TransactionVerification {
         if (!Character.isDigit(transaction.getValue())) {
 
             isValid = false;
-        }
+        }*/
 
         return isValid;
     }

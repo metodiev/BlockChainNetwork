@@ -37,10 +37,33 @@ public class TransactionConnector {
      * @param toAddress
      * @param value
      * @param fee
-     * @param dataHash
+     * @param transactionDataHash
      * @param senderSignature
      */
-    public void pendingTransaction(String fromAddress, String toAddress, int value, int fee, String dataHash, String senderSignature) {
+    public void pendingTransaction(String fromAddress, String toAddress, long value, long fee, String data, String senderPubkey, String transactionDataHash, String  senderSignature,
+                                   long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex  ) {
+
+
+
+        Transaction transaction = new Transaction();
+
+
+        //TO DO See if the money in the fauce Exceeds the money that are in transfers/exchange
+        transaction.setFromAddress(fromAddress);
+        transaction.setToAddress(toAddress);
+        transaction.setValue(value);
+        //TO DO FIND OUT THE RATE OF THE FEES
+        transaction.setFee(fee);
+        transaction.setDateCreated(DateFormat.getDateInstance().toString());
+        transaction.setSenderPubkey(toAddress);
+        transaction.setTransactionDataHash(transactionDataHash);
+        //TO DO WHAT IS THAT HASH
+        transaction.setSenderSignature(senderSignature);
+        System.out.println("This is the transaction fee" + transaction.getFee());
+
+    }
+
+    public void pendingTransaction(String fromAddress, String toAddress, long value, long fee, String dataHash, String senderSignature) {
         Transaction transaction = new Transaction();
         //TO DO See if the money in the fauce Exceeds the money that are in transfers/exchange
         transaction.setFromAddress(fromAddress);
@@ -69,7 +92,7 @@ public class TransactionConnector {
      * @param transactionSuccessfull
      * @return
      */
-    public Transaction confirmedTransaction(String from, String to, int value, int fee, String senderPubKey, String transactionDataHash, String senderSignature, int minedBlockIndex, boolean transactionSuccessfull) {
+    public Transaction confirmedTransaction(String from, String to, long value, long fee, String senderPubKey, String transactionDataHash, String senderSignature, long minedBlockIndex, boolean transactionSuccessfull) {
         Transaction transaction = new Transaction();
         transaction.setFromAddress(from);
         transaction.setToAddress(to);
@@ -85,6 +108,7 @@ public class TransactionConnector {
         return transaction;
 
     }
+
 
 
 }
