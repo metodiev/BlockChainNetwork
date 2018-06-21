@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 
+import static java.lang.Boolean.valueOf;
+
 @RestController
 @Controller
 public class BlockChainController {
 
     @RequestMapping("/info")
-    public String info() {
+    public JSONObject info() {
         LinkedList<Node> info = new LinkedList<Node>();
-
+        JSONObject jsonObjectNode = new JSONObject();
         for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
 
             Node node = new Node ();
@@ -31,13 +33,13 @@ public class BlockChainController {
 
             System.out.println(NodeStaticData.nodes.get(i).getBlocks());
             info.add(node);
+            jsonObjectNode.put("blocks", NodeStaticData.nodes.get(i).getBlocks().get(i).getBlockDataHash());
+
         }
 
-        JSONObject nodeInfo = new JSONObject();
-      //  nodeInfo.put();
 
 
-        return  ":(";
+        return  jsonObjectNode;
     }
 
 
