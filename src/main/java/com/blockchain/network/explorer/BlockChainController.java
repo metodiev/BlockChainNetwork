@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class BlockChainController {
 
     @RequestMapping("/info")
-    public String info() {
+    public JSONObject info() {
         LinkedList<Node> info = new LinkedList<Node>();
 
         for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
@@ -33,11 +33,23 @@ public class BlockChainController {
             info.add(node);
         }
 
-        JSONObject nodeInfo = new JSONObject();
-      //  nodeInfo.put();
+        JSONObject jsonObjectNode = new JSONObject();
+        for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
+
+           /* Node node = new Node();
+            node.setBlocks(NodeStaticData.nodes.get(i).getBlocks());
+            node.setNodeId(NodeStaticData.nodes.get(i).getNodeId());
+            node.setPeers(NodeStaticData.nodes.get(i).getPeers());
+            node.setSelfUrl(NodeStaticData.nodes.get(i).getSelfUrl());
+
+            System.out.println(NodeStaticData.nodes.get(i).getBlocks());
+            info.add(node);*/
 
 
-        return  ":(";
+            jsonObjectNode.put("blocks", NodeStaticData.nodes.get(i).getBlocks().get(i).getBlockDataHash());
+        }
+
+        return  jsonObjectNode;
     }
 
 
