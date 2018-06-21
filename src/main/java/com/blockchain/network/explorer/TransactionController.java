@@ -29,26 +29,34 @@ public class TransactionController {
         //int value = Integer.valueOf(valueTemp);
         String senderPubKey = (String)data.get("senderPubKey");
         long  fee = (long)data.get("fee");
+        String dateCreated = (String)data.get("dateCreated");
+        String transactionDataHash = (String)data.get("transactionDataHash");
+        String  senderSignature = (String)data.get ("senderSignature");
 
+       // String r = senderSignature.substring(0,55);
+      //  String s = senderSignature[1];
+        long minedInBlockIndex = (long)data.get("minedInBlockIndex");
+        boolean transferSuccessful = (boolean)data.get("transferSuccessful");
         //test Json array
         JSONArray arrJson = (JSONArray) data.get("senderSignature");
-
-        String [] senderSignature = new String[arrJson.size()];
+       String  r = arrJson.get(0).toString();
+        String s = arrJson.get(1).toString();
+     /*   String [] senderSignature = new String[arrJson.size()];
         for (int i = 0; i < arrJson.size(); i++) {
             senderSignature[i] = arrJson.get(i).toString();
             System.out.println(senderSignature[i]);
-        }
+        } */
 
 
 
-        //int fee, String from, String senderPubKey, String to, int value
+        //int fee, String from, String senderPubKey, String to, int value- DONE
         //implement the wallet
         //implement JSON to the java wallet
         TransactionConnector transactionConnector = new TransactionConnector();
-        transactionConnector.pendingTransaction(from, from, value, fee, from, from, from, from,
-        fee, true , value);
+        transactionConnector.pendingTransaction(from, to, value, fee, transactionDataHash, senderSignature, minedInBlockIndex, transferSuccessful,r ,s );
 
         return jsonData;
+
     }
 
 

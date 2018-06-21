@@ -22,29 +22,12 @@ public class Transaction {
     private String data;
     private String senderPubkey;
     private String transactionDataHash;
-    private String  senderSignature;
+    private String senderSignature;
     private long inedInBlockIndex;
     private boolean transerSuccessful;
     private long minedBlockIndex;
-
-    public Transaction(String fromAddress, String toAddress, long value, long fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex) {
-        this.fromAddress = fromAddress;
-        this.toAddress = toAddress;
-        this.value = value;
-        this.fee = fee;
-        this.dateCreated = dateCreated;
-        this.data = data;
-        this.senderPubkey = senderPubkey;
-        this.transactionDataHash = transactionDataHash;
-        this.senderSignature = senderSignature;
-        this.inedInBlockIndex = inedInBlockIndex;
-        this.transerSuccessful = transerSuccessful;
-        this.minedBlockIndex = minedBlockIndex;
-    }
-
-    public Transaction()
-    {}
-
+    private String rValue;
+    private String sValue;
 
     public String getFromAddress() {
         return fromAddress;
@@ -141,4 +124,42 @@ public class Transaction {
     public void setMinedBlockIndex(long minedBlockIndex) {
         this.minedBlockIndex = minedBlockIndex;
     }
+
+    public String getrValue() {
+        return rValue;
+    }
+
+    public void setrValue(String rValue) {
+        this.rValue = rValue;
+    }
+
+    public String getsValue() {
+        return sValue;
+    }
+
+    public void setsValue(String sValue) {
+        this.sValue = sValue;
+    }
+
+    public Transaction() {
+    }
+
+    public Transaction(String fromAddress, String toAddress, long value, long fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex, String rValue, String sValue) {
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
+        this.value = value;
+        this.fee = fee;
+        this.dateCreated = dateCreated;
+        this.data = data;
+        this.senderPubkey = senderPubkey;
+        this.transactionDataHash = transactionDataHash;
+        this.senderSignature = senderSignature;
+        this.inedInBlockIndex = inedInBlockIndex;
+        this.transerSuccessful = transerSuccessful;
+        this.minedBlockIndex = minedBlockIndex;
+        this.rValue = rValue;
+        this.sValue = sValue;
+    }
+
 }
+
