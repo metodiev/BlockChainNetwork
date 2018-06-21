@@ -3,23 +3,27 @@ package com.blockchain.node.core;
 import com.blockchain.node.data.Transaction;
 import com.blockchain.node.data.Wallet;
 import com.blockchain.node.staticdata.WalletStaticData;
+import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.Sign;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class WalletConnector {
 
-
+    private BigInteger privateKey;
+    private BigInteger publicKey;
+    private String hashValueSHA256;
 
     public void implementWallet(long fee, String from, String senderPubKey, String to, long value){
         Wallet wallet = new Wallet();
 
-        ConvertDate getCurrentData = new ConvertDate();
+        GetCurrentDate getCurrentData = new GetCurrentDate();
         wallet.setDateCreated(getCurrentData.getCurrentdate());
         wallet.setFee(fee);
         wallet.setFrom(from);
@@ -35,7 +39,7 @@ public class WalletConnector {
     public void implementWallet(long fee, String from, String senderPubKey, String to, long value, String data){
         Wallet wallet = new Wallet();
 
-        ConvertDate getCurrentData = new ConvertDate();
+        GetCurrentDate getCurrentData = new GetCurrentDate();
         wallet.setDateCreated(getCurrentData.getCurrentdate());
         wallet.setFee(fee);
         wallet.setFrom(from);
@@ -50,34 +54,85 @@ public class WalletConnector {
     }
 
 
-    public String getSplitTransactionHashdata() throws NoSuchAlgorithmException {
+    public String [] generateSignTransaction() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         Transaction transaction = new Transaction();
 
-
-        ConvertDate getCurrentDate = new ConvertDate();
+        GetCurrentDate getCurrentDate = new GetCurrentDate();
         String splitTransactionHashData = WalletStaticData.wallets.get(0).getFrom()  + WalletStaticData.wallets.get(0).getTo() +
                 String.valueOf(WalletStaticData.wallets.get(0).getValue()) + String.valueOf(WalletStaticData.wallets.get(0).getFee()) +
                 getCurrentDate  + WalletStaticData.wallets.get(0).getSenderPubKey();
 
         transaction.setSenderSignature(splitTransactionHashData);
-
-        byte[] msgHash = Hash.sha3(splitTransactionHashData.getBytes());
-
-        //Sign.SignatureData signature = Sign.signMessage(msgHash, keyPair, false);
-
-
-        BigInteger privKey = new BigInteger("97ddae0f3a25b92268175400149d65d6887b9cefaf28ea2c078e05cdc15a3c0a", 16);
-        BigInteger pubKey = Sign.publicKeyFromPrivate(privKey);
-        ECKeyPair keyPair = new ECKeyPair(privKey, pubKey);
+        RandomKeyPairGenerator radomGenerator = new RandomKeyPairGenerator();
+        privateKey = radomGenerator.getRadomPrivateKey();
+        publicKey = radomGenerator.getPublicKeyFromPrivateKey(privateKey);
 
 
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         byte[] hashedString = messageDigest.digest(splitTransactionHashData.getBytes());
 
-        String hashValueSHA384 = DatatypeConverter.printHexBinary(hashedString).toLowerCase();
-        System.out.println(hashValueSHA384);
-        return  splitTransactionHashData;
+        this.hashValueSHA256 = DatatypeConverter.printHexBinary(hashedString).toLowerCase();
+        System.out.println(hashValueSHA256);
+
+        ECKeyPair keyPair = new ECKeyPair(privateKey,  publicKey);
+        byte[] msgHash = Hash.sha3(splitTransactionHashData.getBytes());
+        System.out.println(hashValueSHA256);
+        Sign.SignatureData signature = Sign.signMessage(msgHash, keyPair, false);
+
+        String [] arrOfSignAndHash = new String[2];
+            arrOfSignAndHash[0]  =  signature.getV() +
+                    Hex.toHexString(signature.getR()) +
+                    Hex.toHexString(signature.getS());
+
+           arrOfSignAndHash[1] = hashValueSHA256;
+
+        return  arrOfSignAndHash;
     }
 
+    public  static void main(String[] args ) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+
+        WalletStaticData staticData = new WalletStaticData();
+        Wallet wallet = new Wallet();
+        wallet.setFrom("44fe0696beb6e24541cc0e8728276c9ec3af2675");
+        wallet.setTo("9a9f082f37270ff54c5ca4204a0e4da6951fe917");
+        wallet.setValue(25000);
+        wallet.setFee(1000000);
+        GetCurrentDate getCurrentDate = new GetCurrentDate();
+        wallet.setDateCreated(getCurrentDate.getCurrentdate());
+        wallet.setSenderPubKey("2a1d79fb8743d0a4a8501e0028079bcf82a4");
+
+
+
+
+        staticData.addNewWallet(wallet);
+
+        WalletConnector walletConnector = new WalletConnector();
+
+        walletConnector.generateSignTransaction();
+    }
+
+    public BigInteger getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(BigInteger privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public BigInteger getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(BigInteger publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public String getHashValueSHA256() {
+        return hashValueSHA256;
+    }
+
+    public void setHashValueSHA256(String hashValueSHA256) {
+        this.hashValueSHA256 = hashValueSHA256;
+    }
 }

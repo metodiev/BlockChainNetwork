@@ -1,10 +1,8 @@
 package com.blockchain.node.mining;
 
-import com.blockchain.node.core.ConvertDate;
+import com.blockchain.node.core.GetCurrentDate;
 import com.blockchain.node.data.Transaction;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class CoinBaseTransaction {
        transaction.setFee(0);
 
        //get current date
-      ConvertDate date = new ConvertDate();
+      GetCurrentDate date = new GetCurrentDate();
        transaction.setDateCreated(date.getCurrentdate());
        transaction.setSenderPubkey("000000000000000000000000000000000000");
        transaction.setTransactionDataHash("4dfc3e0ef89ed603ed54e47435a18b");
@@ -43,7 +41,7 @@ public class CoinBaseTransaction {
   }
 
   public static void main(String [] args){
-      ConvertDate date = new ConvertDate();
+      GetCurrentDate date = new GetCurrentDate();
       System.out.printf(date.getCurrentdate());
   }
 

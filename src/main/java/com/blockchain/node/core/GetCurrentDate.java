@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ConvertDate {
+public class GetCurrentDate {
 
     public String getCurrentdate() {
         // Create an instance of SimpleDateFormat used for formatting
