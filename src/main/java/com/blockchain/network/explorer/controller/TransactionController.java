@@ -1,7 +1,9 @@
 package com.blockchain.network.explorer.controller;
 
-import com.blockchain.node.core.TransactionConnector;
+import com.blockchain.node.core.NodeReceiveVerifySend;
+import com.blockchain.node.data.Transaction;
 import com.blockchain.node.staticdata.GetJSONData;
+import com.blockchain.node.staticdata.TransactionStaticData;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -13,53 +15,71 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @Controller
 public class TransactionController {
 
-    @RequestMapping(value = "/postTransactionData", method = RequestMethod.POST,
+    @RequestMapping(value = "/transactions/pending", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String handleJsonPostRequest (@RequestBody String  jsonData) {
+    public String getJsonPendingTransaction (@RequestBody String  jsonData) throws UnsupportedEncodingException {
         GetJSONData json = new GetJSONData();
 
-        JSONObject data = (JSONObject)JSONValue.parse(jsonData);
+        if (addNewPendingTransaction(jsonData)){
+            return jsonData;
+        }else {
+            String srrMsg = "(errorMsg, Invalid transaction: field is missing)";
+            return srrMsg;
+        }
+    }
 
-        String from = (String)data.get("from");
-        String to = (String)data.get("to");
-        long value = (long) data.get("value");
-        //int value = Integer.valueOf(valueTemp);
-        String senderPubKey = (String)data.get("senderPubKey");
-        long  fee = (long)data.get("fee");
-        String dateCreated = (String)data.get("dateCreated");
-        String transactionDataHash = (String)data.get("transactionDataHash");
-        String  senderSignature = (String)data.get ("senderSignature");
+    private  boolean addNewPendingTransaction(String jsonData) throws UnsupportedEncodingException {
 
-       // String r = senderSignature.substring(0,55);
-      //  String s = senderSignature[1];
-        long minedInBlockIndex = (long)data.get("minedInBlockIndex");
-        boolean transferSuccessful = (boolean)data.get("transferSuccessful");
-        //test Json array
-        JSONArray arrJson = (JSONArray) data.get("senderSignature");
-       String  r = arrJson.get(0).toString();
+        JSONObject JSONdata = (JSONObject)JSONValue.parse(jsonData);
+
+        String from = (String)JSONdata.get("from");
+        String to = (String)JSONdata.get("to");
+        long value = (long) JSONdata.get("value");
+        long  fee = (long)JSONdata.get("fee");
+        String dateCreated = (String)JSONdata.get("dateCreated");
+
+        if(!(JSONdata.get("data").toString().isEmpty())) {
+            String data = (String) JSONdata.get("data");
+        }
+        String senderPubKey = (String)JSONdata.get("senderPubKey");
+        String transactionDataHash = (String)JSONdata.get("transactionDataHash");
+        String  senderSignature = (String)JSONdata.get ("senderSignature");
+
+        //sender signature
+        JSONArray arrJson = (JSONArray) JSONdata.get("senderSignature");
+        String  r = arrJson.get(0).toString();
         String s = arrJson.get(1).toString();
-     /*   String [] senderSignature = new String[arrJson.size()];
-        for (int i = 0; i < arrJson.size(); i++) {
-            senderSignature[i] = arrJson.get(i).toString();
-            System.out.println(senderSignature[i]);
-        } */
 
+        Transaction transaction = new Transaction();
+        transaction.setFromAddress(from);
+        transaction.setToAddress(to);
+        transaction.setValue(value);
+        transaction.setDateCreated(dateCreated);
+        transaction.setSenderPubkey(senderPubKey);
+        transaction.setTransactionDataHash(transactionDataHash);
+        transaction.setrValue(r);
+        transaction.setsValue(s);
 
+        TransactionStaticData.addNewTransaction(transaction);
 
-        //int fee, String from, String senderPubKey, String to, int value- DONE
-        //implement the wallet
-        //implement JSON to the java wallet
-        TransactionConnector transactionConnector = new TransactionConnector();
-        transactionConnector.pendingTransaction(from, to, value, fee, transactionDataHash, senderSignature, minedInBlockIndex, transferSuccessful,r ,s );
-
-        return jsonData;
+       return transactionSingAndVerify(transaction);
 
     }
+
+    private boolean transactionSingAndVerify(Transaction transaction) throws UnsupportedEncodingException {
+        NodeReceiveVerifySend nodeReceiveVerifySend = new NodeReceiveVerifySend();
+        boolean isValidTransaction = nodeReceiveVerifySend.verifyAndSendTransaction(transaction);
+
+        return isValidTransaction;
+    }
+
 
     @RequestMapping("/transaction/pending")
     public JsonArray pendingTransaction() {

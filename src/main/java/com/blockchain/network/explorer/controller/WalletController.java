@@ -49,29 +49,49 @@ public class WalletController {
     }
 
 
-   /* public static  void main(String [] args){
-        String json = "{ \"from\": \"c3293572dbe6ebc60de4a20ed0e21446cae66b17\",\n" +
-                "  \"to\": \"f51362b7351ef62253a227a77751ad9b2302f911\",\n" +
-                "  \"value\": 25000, \"fee\": 10, \"transferSuccessful\": \"2018-02-10T17:53:48.972Z\",\n" +
-                "  \"senderPubKey\": \"c74a8458cd7a7e48f4b7ae6f4ae9f56c5c88c0f03e7…bba1\"\n" +
-                "}";
-
-        String jsonStr = "{\"BusName\":\"Joe\",\"BusPhone\":\"1234567890\"}";
-        JSONObject myJsonObj = new JSONObject();
-
-        String busname = myJsonObj.getOrDefault("BusPhone","asd").toString();
-       // String busName = myJsonObj.getString("BusName");
-        //String busPhone = myJSONObj.getString("BusPhone");
-        System.out.println(busname);
-
-        JSONObject data = (JSONObject)JSONValue.parse(jsonStr);
-        String businessName = (String)data.get("BusName");
-        String businessPhone = (String)data.get("BusPhone");
-        System.out.println(businessName);
-    }*/
 
 
-    public boolean validateJsonWallet(){
+    @RequestMapping(value = "/createWallet", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public String createWalletFromJson (@RequestBody String  jsonData) {
+
+        validateJsonWallet(jsonData);
+
+        return jsonData;
+    }
+
+    //-Create wallet - makes the user stuff that is PrivateKEy and publickey and arrdess
+    //-openwallet-user puts his private key and from there we can generate the public key
+    //-create transaction = user puts the toAddress, value,data(optional) and fee  and in the transaction
+    // the program should put the the public key and fromAddress
+    //-sign the tx - the TxData should be generated and then with that data and with private key
+    //the signature should be generated
+    //-after the signing the signature and txData should be appended to the TX and we can send it to the NODE
+
+    public boolean validateJsonWallet(String jsonData){
+
+
+        JSONObject data = (JSONObject)JSONValue.parse(jsonData);
+        String from = (String)data.get("from").toString().replace(" ", "");
+        String to = (String)data.get("to").toString().replace(" ", "");
+        long value = (long) data.get("value");
+
+        String dateCreated = (String)data.get("dateCreated");
+        String senderPubKey = (String)data.get("senderPubKey");
+        String transactionDataHash = (String)data.get("transactionDataHash");
+        String senderSignature = (String)data.get("senderSignature");
+        long  fee = (long)data.get("fee");
+        String dataOptional = (String)data.get("data");
+        if (data.isEmpty()){
+
+            WalletConnector walletConnector = new WalletConnector();
+            walletConnector.implementWallet(fee, from, senderPubKey, to, value);
+        }else {
+
+            WalletConnector walletConnector = new WalletConnector();
+            walletConnector.implementWallet(fee, from, senderPubKey, to, value, dataOptional);
+        }
 
         boolean isValid = false;
 
