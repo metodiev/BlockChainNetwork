@@ -14,6 +14,5 @@ public class BlockChainSceletonApplication {
 		ApplicationContext context = SpringApplication.run(BlockChainSceletonApplication.class,args);
 		System.out.println("Contains blockController  "+context.
 				containsBeanDefinition("blockController"));
-
 	}
 }

@@ -109,9 +109,6 @@ public class WalletConnector {
         wallet.setDateCreated(getCurrentDate.getCurrentdate());
         wallet.setSenderPubKey("2a1d79fb8743d0a4a8501e0028079bcf82a4");
 
-
-
-
         staticData.addNewWallet(wallet);
 
         WalletConnector walletConnector = new WalletConnector();

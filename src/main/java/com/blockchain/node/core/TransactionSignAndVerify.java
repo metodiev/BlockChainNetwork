@@ -126,7 +126,6 @@ public class TransactionSignAndVerify {
         byte[] result = new byte[digest.getDigestSize()];
         digest.doFinal(result, 0);
         return result;
-
     }
 
     public static ECPoint getPublicKeyFromPrivateKey(BigInteger privKey) {
