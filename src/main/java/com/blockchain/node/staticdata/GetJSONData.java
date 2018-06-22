@@ -1,6 +1,5 @@
 package com.blockchain.node.staticdata;
 
-import com.blockchain.network.explorer.BlockController;
 import com.blockchain.node.data.Block;
 import org.json.simple.JSONObject;
 

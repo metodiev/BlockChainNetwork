@@ -1,4 +1,4 @@
-package com.blockchain.network.explorer;
+package com.blockchain.network.explorer.controller;
 
 import com.blockchain.node.core.WalletConnector;
 import com.blockchain.node.staticdata.GetJSONData;
@@ -23,6 +23,8 @@ public class WalletController {
         String from = (String)data.get("from").toString().replace(" ", "");
         String to = (String)data.get("to").toString().replace(" ", "");
         long value = (long) data.get("value");
+        boolean transferSuccessful = (boolean)data.get("transferSuccessful");
+
         //int value = Integer.valueOf(valueTemp);
         String senderPubKey = (String)data.get("senderPubKey");
         long  fee = (long)data.get("fee");
@@ -50,7 +52,7 @@ public class WalletController {
    /* public static  void main(String [] args){
         String json = "{ \"from\": \"c3293572dbe6ebc60de4a20ed0e21446cae66b17\",\n" +
                 "  \"to\": \"f51362b7351ef62253a227a77751ad9b2302f911\",\n" +
-                "  \"value\": 25000, \"fee\": 10, \"dateCreated\": \"2018-02-10T17:53:48.972Z\",\n" +
+                "  \"value\": 25000, \"fee\": 10, \"transferSuccessful\": \"2018-02-10T17:53:48.972Z\",\n" +
                 "  \"senderPubKey\": \"c74a8458cd7a7e48f4b7ae6f4ae9f56c5c88c0f03e7…bba1\"\n" +
                 "}";
 
