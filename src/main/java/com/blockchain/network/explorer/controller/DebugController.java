@@ -30,6 +30,7 @@ public class DebugController {
     public String debug() {
         LinkedList<Node> info = new LinkedList<Node>();
 
+
      /*   for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
 
             Node node = new Node();

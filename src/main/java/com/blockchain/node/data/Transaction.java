@@ -28,6 +28,9 @@ public class Transaction {
     private long minedBlockIndex;
     private String rValue;
     private String sValue;
+    private int difficulty;
+    private String prevBlockHash ;
+    private String minedBy ;
 
     public String getFromAddress() {
         return fromAddress;
@@ -141,10 +144,34 @@ public class Transaction {
         this.sValue = sValue;
     }
 
-    public Transaction() {
+    public int getDifficulty() {
+        return difficulty;
     }
 
-    public Transaction(String fromAddress, String toAddress, long value, long fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex, String rValue, String sValue) {
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getPrevBlockHash() {
+        return prevBlockHash;
+    }
+
+    public void setPrevBlockHash(String prevBlockHash) {
+        this.prevBlockHash = prevBlockHash;
+    }
+
+    public String getMinedBy() {
+        return minedBy;
+    }
+
+    public void setMinedBy(String minedBy) {
+        this.minedBy = minedBy;
+    }
+
+    public Transaction()
+    {}
+
+    public Transaction(String fromAddress, String toAddress, long value, long fee, String dateCreated, String data, String senderPubkey, String transactionDataHash, String senderSignature, long inedInBlockIndex, boolean transerSuccessful, long minedBlockIndex, String rValue, String sValue, int difficulty, String prevBlockHash, String minedBy) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.value = value;
@@ -159,7 +186,9 @@ public class Transaction {
         this.minedBlockIndex = minedBlockIndex;
         this.rValue = rValue;
         this.sValue = sValue;
+        this.difficulty = difficulty;
+        this.prevBlockHash = prevBlockHash;
+        this.minedBy = minedBy;
     }
-
 }
 

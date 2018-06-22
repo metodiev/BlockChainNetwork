@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
 
-import static com.blockchain.node.core.RandomKeyPairGenerator.Domain;
+
 
 @Controller
 public class CreateNewWalletController {
