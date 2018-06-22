@@ -16,7 +16,7 @@ public class TransactionTest {
         Field[] fields = cls.getDeclaredFields();
         boolean isValidClass = true;
         for (int i = 0; i < fields.length; i++) {
-            isValidClass = checkBlockData(i, fields[i].toString());
+           isValidClass = checkBlockData(i, fields[i].toString());
             System.out.println("Isvalid" + isValidClass + i);
             System.out.println(fields[i].toString());
             if (isValidClass == false  ){

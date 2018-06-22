@@ -8,7 +8,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PeersControllerTest {
-/* TO DO THERE IS NOTHING IN THE PEERS CONTROLLER
+
     @LocalServerPort
     private int port;
 
@@ -36,5 +36,5 @@ public class PeersControllerTest {
     public void defaultNodeMessate() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/debug", String.class)).isNotEmpty();
     }
-    */
+
 }

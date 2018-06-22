@@ -38,13 +38,13 @@ import static org.assertj.core.api.Assertions.assertThat;
         @Test
         public void defaultDebugMessage() throws Exception {
             assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/postWalletData",
-                    String.class)).contains("fro");
+                    String.class)).contains("from");
         }
 
         @Test
         public void defaultDebug() throws Exception {
             assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/postWalletData",
-                    String.class)).contains("to");
+                    String.class)).contains("about");
         }
 
         @Test

@@ -11,6 +11,7 @@ public class BlockChainSceletonApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }
