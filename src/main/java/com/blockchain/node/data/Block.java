@@ -14,7 +14,7 @@ public class Block {
     DateCreated: ISO8601_string
     BlockHash: hex_number[64]*/
 
-    public int index;
+    private int index;
 
     private ArrayList<Transaction> transaction;
     private int difficulty;
