@@ -49,7 +49,7 @@ public class InfoController  {
 
 
         //generate the JSON logic
-        jsonObjectNode.addProperty("about", "BlockChainNetwork Project Uncknown Three Guys/Java 7, Spring REST");
+        jsonObjectNode.addProperty("about", "BlockChainNetwork Project Unknown Three Guys/Java 7, Spring REST");
 
         final String uuid = UUID.randomUUID().toString().replace("-------------", "");
         System.out.println("uuid = " + uuid);

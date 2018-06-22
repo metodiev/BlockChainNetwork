@@ -44,6 +44,32 @@ public class BlockControllerTest {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",
                 String.class)).contains("this is the node par");
     }
+    @Test
+    public void defaultNodeMessate ()  throws Exception{
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",String.class)).isNotEmpty();
+    }
+  /*  @Test
+    public void nodeContainsId ()  throws Exception{
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",String.class)).contains("nodeId");
+    }
+    @Test
+    public void nodeContainsSelfURL ()  throws Exception{
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",String.class)).contains("selfURL");
+
+    }
+
+    @Test
+    public void nodeContainsPeers ()  throws Exception{
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",String.class)).contains("peers");
+
+    }
+    @Test
+    public void nodeContainsChain()  throws Exception{
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/node",String.class)).contains("chain");
+
+    }
+  I COMMENT THIS BECAUSE THE NODE IS FIRSTLY EMPTY
+*/
 
 //this is with the mock
     /*@Autowired
