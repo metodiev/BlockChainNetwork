@@ -25,7 +25,7 @@ li a {
 </head>
 <body>
 
-<h1>Home</h1>
+<h1>Create new  Wallet</h1>
 <ul>
     <li><a href="home">Home</a></li>
     <li><a href="createwallet">Create New Wallet</a></li>
@@ -35,6 +35,11 @@ li a {
     <li><a href="sendtransaction">Send Transaction</a></li>
 </ul>
 
-
+<h1>Form</h1>
+<form action="#" th:action="@{/wallet/sendtransaction}" th:object="${wallet}" method="post">
+    <p>Id: <input type="text" th:field="*{from}" /></p>
+    <p>Message: <input type="text" th:field="*{to}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
 </body>
 </html>
