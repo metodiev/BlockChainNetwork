@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SignatureException;
+import java.util.ArrayList;
 
 import static com.blockchain.node.core.Test.encodeECPointHexCompressed;
 import static com.sun.xml.internal.messaging.saaj.packaging.mime.util.ASCIIUtility.getBytes;
@@ -49,6 +50,8 @@ public class NodeReceiveVerifySend {
     private static final ECDomainParameters domain = new ECDomainParameters(curve.getCurve(), curve.getG(),
             curve.getN(), curve.getH());
     private Transaction transaction;
+    private ArrayList<Transaction> receivedTxPool;
+    private ArrayList<Transaction> pendingTxPool;
 
     /*    public String hardCodedJson =    {
                 "fromAddress":"c3293572dbe6ebc60de4a20ed0e21446cae66b17",
@@ -67,10 +70,11 @@ public class NodeReceiveVerifySend {
     public static void main(String[] args) throws UnsupportedEncodingException, SignatureException {
         NodeReceiveVerifySend nodeReceiveVerifySend = new NodeReceiveVerifySend();
         nodeReceiveVerifySend.hardCodedTransactionData();
+
     }
 
 
-    public void hardCodedTransactionData() throws UnsupportedEncodingException, SignatureException {
+    private Transaction hardCodedTransactionData() throws UnsupportedEncodingException, SignatureException {
         Transaction transaction = new Transaction();
         transaction.setFromAddress("c3293572dbe6ebc60de4a20ed0e21446cae66b17");
         transaction.setToAddress("f51362b7351ef62253a227a77751ad9b2302f911");
@@ -82,31 +86,54 @@ public class NodeReceiveVerifySend {
         transaction.setSenderSignature("69e32856edc1c95eeada2f0d03767ec4e1baaa75d6518ba5c82493039f6416d6f121ea497e35c07c7f27cb5b76e0fc23ba6224c288557c790cce5afee9125130");
         transaction.setrValue("69e32856edc1c95eeada2f0d03767ec4e1baaa75d6518ba5c82493039f6416d6");
         transaction.setsValue("f121ea497e35c07c7f27cb5b76e0fc23ba6224c288557c790cce5afee9125130");
-        // verifyAndSendTransaction(transaction);
-        //   Validates the transaction public key, validates the signature
-        //  verifyPubKey(,transaction.getSenderPubkey());
-        System.out.println(verifyTxHash(transaction,transaction.getTransactionDataHash()));
-        // verifyAddress(transaction);
-        // verify(byte[] hash, byte[] signature, byte[] publicKey)
-        // boolean b =  verify();
-        //System.out.println(b);
+
+        System.out.println("Is the Transaction Valid: "+verifyTransaction(transaction));
+
+        return transaction;
+
+    }
+    private boolean checkBalance(){
+        return true;
+    }
+    private boolean verifyTransaction(Transaction transaction) throws UnsupportedEncodingException, SignatureException {
+
+        boolean isValidDataHash = verifyTxHash(transaction,transaction.getTransactionDataHash());
+        boolean isValidPubKey =  verifyPubKey(transaction,transaction.getSenderPubkey());
+        boolean isValidAddress = verifyAddress(transaction,transaction.getFromAddress());
+        boolean isValidData = checkTransactionFieldAndData(transaction);
+        boolean isGoodBalance = checkBalance();
+        if (isValidData && isValidDataHash && isValidPubKey && isValidAddress && isGoodBalance) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    //fot he example its hard coded in the real life we'll get them from the wallet somehow
+    private boolean verifyAddress(Transaction transaction, String fromAddress) throws SignatureException {
 
+        Sign.SignatureData signature = new Sign.SignatureData((byte) 28, Numeric.hexStringToByteArray(transaction.getrValue()),
+                Numeric.hexStringToByteArray(transaction.getsValue()));
 
-    public boolean verifyAndSendTransaction(Transaction transaction) throws UnsupportedEncodingException {
-
-        // transaction = TransactionStaticData.transactions.get(0);
-        String returnString = "";
-
-        boolean isVlaidData = checkTransactionFieldAndData(transaction);
-        if (isVlaidData) {
-            boolean isValid = verifyTxHash(transaction, transaction.getTransactionDataHash());
-            System.out.println("is the transsaction valid: " + isValid);
-
+        BigInteger pubKeyRecovered = Sign.signedMessageToKey(transaction.getTransactionDataHash().getBytes(), signature);
+        String address = Keys.getAddress(pubKeyRecovered);
+        boolean areEqualsAdresses = address.equals(fromAddress.toLowerCase());
+        if (!areEqualsAdresses) {
             return true;
+        } else {
+            return false;
+        }
 
+    }
+
+    private boolean verifyPubKey(Transaction transaction, String senderPubkey) throws SignatureException, UnsupportedEncodingException {
+
+        Sign.SignatureData signature = new Sign.SignatureData((byte) 28, Numeric.hexStringToByteArray(transaction.getrValue()),
+                Numeric.hexStringToByteArray(transaction.getsValue()));
+
+        BigInteger pubKeyRecovered = Sign.signedMessageToKey(transaction.getTransactionDataHash().getBytes(), signature);
+
+        if (!pubKeyRecovered.equals(senderPubkey)) {
+            return true;
         } else {
             return false;
         }
@@ -204,7 +231,7 @@ public class NodeReceiveVerifySend {
         return isVlaidFieldsInputTransacion;
     }
 
-    public boolean verifyTxHash(Transaction transaction, String txDataHash) throws UnsupportedEncodingException {
+    private boolean verifyTxHash(Transaction transaction, String txDataHash) throws UnsupportedEncodingException {
         Transaction tran = new Transaction();
         tran.setToAddress(transaction.getToAddress());
         tran.setFromAddress(transaction.getFromAddress());
@@ -221,121 +248,12 @@ public class NodeReceiveVerifySend {
             return false;
         }
     }
-    private static String calcRipeMD160(String text) throws UnsupportedEncodingException {
-        byte[] bytes = getBytes(text);
-        RIPEMD160Digest digest = new RIPEMD160Digest();
-        digest.update(bytes, 0, bytes.length);
-        byte[] result = new byte[digest.getDigestSize()];
-        digest.doFinal(result, 0);
-        return BytesToHex(result);
-    }
-    public boolean verify(byte[] hash, byte[] signature, byte[] publicKey) {
-        ASN1InputStream asn1 = new ASN1InputStream(signature);
-        try {
-            ECDSASigner signer = new ECDSASigner();
-            signer.init(false, new ECPublicKeyParameters(curve.getCurve().decodePoint(publicKey), domain));
 
-            DLSequence seq = (DLSequence) asn1.readObject();
-            BigInteger r = ((ASN1Integer) seq.getObjectAt(0)).getPositiveValue();
-            BigInteger s = ((ASN1Integer) seq.getObjectAt(1)).getPositiveValue();
-            return signer.verifySignature(hash, r, s);
-        } catch (Exception e) {
-            return false;
-        } finally {
-            try {
-                asn1.close();
-            } catch (IOException ignored) {
-            }
-        }
+    private void transacationSendToNetwork(Transaction tx) {
+        pendingTxPool.add(tx);
     }
 
-   /* public static boolean verifySignature(ECPoint publicKey, BigInteger[] signature, byte[] msg) {
-        ECDSASigner signer = getSigner();
-        signer.init(false, new ECPublicKeyParameters(publicKey, ecDomain));
-        return signer.verifySignature(msg, signature[0], signature[1]);
-    }*/
-/*    private boolean verifyAddress(Transaction transaction) throws SignatureException, UnsupportedEncodingException {
-
-
-
-        String pubKey = transaction.getSenderPubkey();
-       // String pubKeyCompressed = encodeECPointHexCompressed((ECPoint.class.cast(pubKey.getBytes())));
-       // System.out.println("Public key (compressed): " + pubKeyCompressed);
-
-        String addr = ECPublicKeyParameterscalcRipeMD160(pubKey);
-        System.out.println("Blockchain address:" + addr);
-
-
-        String addr1 = calcRipeMD160(pubKey);
-        System.out.println("sender address:" + transaction.getFromAddress());
-
-
-        Sign.SignatureData signature = new Sign.SignatureData((byte) 28, Numeric.hexStringToByteArray(transaction.getrValue()),
-                Numeric.hexStringToByteArray(transaction.getsValue()));
-        BigInteger pubKeyRecovered = Sign.signedMessageToKey(transaction.getTransactionDataHash().getBytes(),signature);
-        System.out.println("recoveredPubKey"+pubKeyRecovered.toString(16));
-        String pubKeyRecoveredString = Hex.toHexString(pubKeyRecovered.toByteArray());
-        System.out.println(pubKeyRecoveredString);
-
-     //   String addr2 = calcRipeMD160(pubKeyRecovered.getBytes());
-        String addr2 = calcRipeMD160(pubKeyRecoveredString);
-
-       System.out.println("Blockchain address:" + addr2);
-        String address = Keys.getAddress(pubKeyRecovered);
-       System.out.println("Blockchain address:" + address.getBytes());
-*//*
-* 	public static String[] separateInput(String input) {
-
-		String[] separateInput = input.split(",");
-		String v = separateInput[1].split(":")[1].replaceAll("\"", "");
-		String r = separateInput[2].split(":")[1].replaceAll("\"", "");
-		String s = separateInput[3].split(":")[1].replaceAll("\"}", "").replaceAll("\"", "").replaceAll("0x", "");
-
-		String[] arr = new String[3];
-		arr[0] = v;
-		arr[1] = s;
-		arr[2] = r;
-
-		return arr;
-	}*//*;
-     *//*
-        String input = "{\"signature\":\"0xacd0acd4eabd1bec05393b33b4018fa38b69eba8f16ac3d60eec9f4d2abc127e3c92939e680b91b094242af80fce6f217a34197a69d35edaf616cb0c3da4265b01\",\"v\":\"0x1\",\"r\":\"0xacd0acd4eabd1bec05393b33b4018fa38b69eba8f16ac3d60eec9f4d2abc127e\",\"s\":\"0x3c92939e680b91b094242af80fce6f217a34197a69d35edaf616cb0c3da4265b\"}";
-        String[] separateInput = separateInput(input);
-
-        String msg = "exercise-cryptography";
-        byte[] msgHash = Hash.sha3(msg.getBytes());
-
-        Sign.SignatureData signature = new SignatureData((byte) 28, Numeric.hexStringToByteArray(separateInput[2]),
-                Numeric.hexStringToByteArray(separateInput[1]));
-
-
-        System.out.println("0x" + address);
-        *//*
-
-
-        //  System.out.println("Sender private key:" + senderPrivKeyHex);
-        //  BigInteger privateKey = new BigInteger(senderPrivKeyHex, 16);
-
-*//*        BigInteger pubKeyRecovered = Sign.signedMessageToKey(msgHash, signature);
-        String address = Keys.getAddress(pubKeyRecovered);
-
-        ECPoint pubKeyEcPoint = new BigInteger(pubKey.getBytes());
-
-        String senderPubKeyCompressed = encodeECPointHexCompressed(pubKey);
-        System.out.println("Public key (compressed):" + senderPubKeyCompressed);
-        String senderAddress = calcRipeMD160(senderPubKeyCompressed);
-        System.out.println("BlockChain address:" + senderAddress);*//*
-        return true;
-    }*/
-
-
-
-    public void transacationSendToNetwork(Transaction tx) {
-        //    Bounc
-
-    }
-
-    public static String BytesToHex(byte[] bytes) {
+    private static String BytesToHex(byte[] bytes) {
         return Hex.toHexString(bytes);
     }
 
@@ -348,27 +266,6 @@ public class NodeReceiveVerifySend {
         return result;
 
     }
-/*    public static ECPublicKeyParameters toPublicKey(String privateKey) {
-        BigInteger d = new BigInteger(privateKey, 16);
-        ECPoint q = Domain.getG().multiply(d);
-        ECPublicKeyParameters publicParams = new ECPublicKeyParameters(q, Domain);
-        return publicParams;
-    }*/
-/*    public static boolean verifySignature(String privateKeyHex, BigInteger[] signature, byte[] msg) {
-        DSAKCalculator kCalculator = new HMacDSAKCalculator(new SHA256Digest());
-        ECDSASigner signer = new ECDSASigner(kCalculator);
-        ECPublicKeyParameters pubKey = toPublicKey(privateKeyHex);
-        signer.init(false, pubKey);
-        return signer.verifySignature(msg, signature[0], signature[1]);
-    }*/
 
-//    public static boolean verifySignature(String publicKey, BigInteger[] signature, byte[] msg) {
-//        DSAKCalculator kCalculator = new HMacDSAKCalculator(new SHA256Digest());
-//        ECDSASigner signer = new ECDSASigner(kCalculator);
-//
-//        ECPublicKeyParameters pubKey = toPublicKey(privateKeyHex);
-//        signer.init(false, pubKey);
-//        return signer.verifySignature(msg, signature[0], signature[1]);
-//    }
 }
 
