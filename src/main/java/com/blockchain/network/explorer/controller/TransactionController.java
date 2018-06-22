@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @Controller
 public class TransactionController {
@@ -22,7 +24,7 @@ public class TransactionController {
     @RequestMapping(value = "/transactions/pending", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String getJsonPendingTransaction (@RequestBody String  jsonData) {
+    public String getJsonPendingTransaction (@RequestBody String  jsonData) throws UnsupportedEncodingException {
         GetJSONData json = new GetJSONData();
 
         if (addNewPendingTransaction(jsonData)){
@@ -33,7 +35,7 @@ public class TransactionController {
         }
     }
 
-    private  boolean addNewPendingTransaction(String jsonData){
+    private  boolean addNewPendingTransaction(String jsonData) throws UnsupportedEncodingException {
 
         JSONObject JSONdata = (JSONObject)JSONValue.parse(jsonData);
 
@@ -71,7 +73,7 @@ public class TransactionController {
 
     }
 
-    private boolean transactionSingAndVerify(Transaction transaction){
+    private boolean transactionSingAndVerify(Transaction transaction) throws UnsupportedEncodingException {
         NodeReceiveVerifySend nodeReceiveVerifySend = new NodeReceiveVerifySend();
         boolean isValidTransaction = nodeReceiveVerifySend.verifyAndSendTransaction(transaction);
 
