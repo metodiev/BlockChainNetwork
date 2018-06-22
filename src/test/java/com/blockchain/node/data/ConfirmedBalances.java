@@ -122,6 +122,7 @@ public class ConfirmedBalances {
                 {
                     break ;
                 }
+                //Dummy Comment
                 break;
             case 6:
                 validateTheFields = blockDataInfo.contains("private");
