@@ -34,12 +34,11 @@ li a {
     <li><a href="ballance">Ballance</a></li>
     <li><a href="sendtransaction">Send Transaction</a></li>
 </ul>
+<h3>Generate a new wallet: random private key->
+public key->address.</h3>
+<form action="#" th:action="@{/wallet/createwalletresult}">
 
-<h1>Form</h1>
-<form action="#" th:action="@{/wallet/sendtransaction}" th:object="${wallet}" method="post">
-    <p>Id: <input type="text" th:field="*{from}" /></p>
-    <p>Message: <input type="text" th:field="*{to}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <p><input type="submit" value="Generate Now" />
 </form>
 </body>
 </html>
