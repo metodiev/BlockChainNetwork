@@ -79,7 +79,18 @@ public class TransactionConnector {
         transaction.setTransactionDataHash(dataHash);
         //TO DO WHAT IS THAT HASH
         transaction.setSenderSignature(senderSignature);
-
+/*private String jsonHardCoded = "{\n" +
+            "\"fromAddress\":\"c3293572dbe6ebc60de4a20ed0e21446cae66b17\",\n" +
+            "\"toAddress\":\"f51362b7351ef62253a227a77751ad9b2302f911\",\n" +
+            "\"value\":25000,\n" +
+            "\"fee\":10,\n" +
+            "\"dateCreated\":\"2018-02-10T17:53:48.972Z\",\n" +
+            "\"senderPubkey\":\"c74a8458cd7a7e48f4b7ae6f4ae9f56c5c88c0f03e7c59cb4132b9d9d1600bba1\",\n" +
+            "\"transactionDataHash\":\"930bfd70a191d6f0e90cc0c34d379b70e715f009e40925130431c305aed384d7\",\n" +
+            "\"senderSignature\":\"69e32856edc1c95eeada2f0d03767ec4e1baaa75d6518ba5c82493039f6416d6f121ea497e35c07c7f27cb5b76e0fc23ba6224c288557c790cce5afee9125130\",\n" +
+            "\"inedInBlockIndex\":0,\n" +
+            "\"transerSuccessful\":false,\n" +
+            "\"minedBlockIndex\":0 }";*/
     }
 
     /***

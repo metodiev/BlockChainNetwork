@@ -32,5 +32,14 @@ public class NodeConnector {
 
         return  node;
     }
+    public void connectNodeToNetwork (){
+        //to connect with the network somehow
+
+    }
+    public void syncWithBlockChain() {
+        //to get the stuff from the BC
+        //blocks, Tx's', peers,
+        //
+    }
 
 }
