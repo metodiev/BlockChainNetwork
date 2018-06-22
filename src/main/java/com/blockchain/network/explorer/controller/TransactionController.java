@@ -1,8 +1,10 @@
-package com.blockchain.network.explorer;
+package com.blockchain.network.explorer.controller;
 
 import com.blockchain.node.core.TransactionConnector;
-import com.blockchain.node.core.WalletConnector;
 import com.blockchain.node.staticdata.GetJSONData;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -59,34 +61,59 @@ public class TransactionController {
 
     }
 
+    @RequestMapping("/transaction/pending")
+    public JsonArray pendingTransaction() {
 
-   /* public static  void main(String [] args){
-        String json = "{ \"from\": \"44fe0696beb6e24541cc0e8728276c9ec3af2675\"," +
-                " \"to\": \"9a9f082f37270ff54c5ca4204a0e4da6951fe917\", " +
-                "\"value\": 25000," +
-                " \"fee\": 10, " +
-                "\"dateCreated\": \"2018-02-10T17:53:48.972Z\", " +
-                "\"data\": \"…\", " +
-                "\"senderPubKey\": \"2a1d79fb8743d0a4a8501e0028079bcf82a4…eae1\"," +
-                " \"transactionDataHash\": \"4dfc3e0ef89ed603ed54e47435a18…176a\"," +
-                " \"senderSignature\": [\"e20c…a3c29df79f\", \"cf92…0acd0c2ffe56\"]," +
-                " \"minedInBlockIndex\": 7," +
-                " \"transferSuccessful\": true }";
+             /*  [{
 
-        String jsonStr = "{\"BusName\":\"Joe\",\"BusPhone\":\"1234567890\"}";
-        JSONObject myJsonObj = new JSONObject();
+"from": "44fe0696beb6e24541cc0e8728276c9ec3af2675",
 
-        String busname = myJsonObj.getOrDefault("BusPhone","asd").toString();
-       // String busName = myJsonObj.getString("BusName");
-        //String busPhone = myJSONObj.getString("BusPhone");
-        System.out.println(busname);
+"to": "9a9f082f37270ff54c5ca4204a0e4da6951fe917",
 
-        JSONObject data = (JSONObject)JSONValue.parse(jsonStr);
-        String businessName = (String)data.get("BusName");
-        String businessPhone = (String)data.get("BusPhone");
-        System.out.println(businessName);
+"value": 25000, "fee": 10,
+
+"dateCreated": "2018-02-10T17:53:48.972Z", "data": "…",
+
+"senderPubKey": "2a1d79fb8743d0a4a8501e0028079bcf82a4f…eae1",
+
+"transactionDataHash": "4dfc3e0ef89ed603ed54e47435a18…176a",
+
+"senderSignature": ["e20c…a3c29df79f", "cf92…0acd0c2ffe56"]
+
+},*/
+
+        JsonObject jsonObjectNode = new JsonObject();
+
+
+        //generate the JSON logic
+
+        jsonObjectNode.addProperty("from", "44fe0696beb6e24541cc0e8728276c9ec3af2675");
+        jsonObjectNode.addProperty("to", "9a9f082f37270ff54c5ca4204a0e4da6951fe917");
+        jsonObjectNode.addProperty("value", 25000);
+        jsonObjectNode.addProperty("dateCreated", "2a1d79fb8743d0a4a8501e0028079bcf82a4f");
+        jsonObjectNode.addProperty("senderPubKey", "T4dfc3e0ef89ed603ed54e47435a18");
+        jsonObjectNode.addProperty("transactionDataHash", "4dfc3e0ef89ed603ed54e47435a18");
+
+
+
+        JsonArray valueArray=new JsonArray();
+
+            JsonObject jsonPropValue=new JsonObject();
+            jsonPropValue.addProperty("id", "asdfasdfasdfasd32324");
+            jsonPropValue.addProperty("propValue","asdfasdfasdf");
+            valueArray.add(jsonPropValue);
+
+
+        //jsonObjectNode.getAsJsonArray(valueArray.get(1).getAsString());
+
+        Gson gson = new Gson();
+        String transactionJson = gson.toJson(jsonObjectNode);
+
+        //JsonObject gson = new JsonParser().parse("{\"id\":\"value\"}");
+        //TODO reset the genesis block
+        return valueArray.getAsJsonArray();
     }
-*/
+
 
     public boolean validateJsonWallet(){
 

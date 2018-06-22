@@ -1,4 +1,4 @@
-package com.blockchain.network.explorer;
+package com.blockchain.network.explorer.controller;
 
 import com.blockchain.node.core.WalletConnector;
 import com.blockchain.node.staticdata.GetJSONData;

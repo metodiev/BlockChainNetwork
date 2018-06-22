@@ -1,6 +1,6 @@
-package com.blockchain.network.explorer;
+package com.blockchain.network.explorer.controller;
 
-import com.blockchain.network.explorer.BlockController;
+import com.blockchain.network.explorer.controller.BlockController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class BlockExplorerTest {
+public class BlockControllerTest {
 
     @LocalServerPort
     private int port;
