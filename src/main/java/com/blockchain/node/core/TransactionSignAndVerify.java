@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import com.blockchain.node.data.Transaction;
-import javafx.util.converter.BigIntegerStringConverter;
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
