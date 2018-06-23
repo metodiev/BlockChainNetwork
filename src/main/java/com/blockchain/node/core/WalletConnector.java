@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.ECKey;
 
 public class WalletConnector {
 
@@ -70,11 +69,6 @@ public class WalletConnector {
         publicKey = radomGenerator.getPublicKeyFromPrivateKey(privateKey);
 
        //  String privateKey =  "c1fa7dc69c28a37c44f0761376ab502ebbf7206012d2c8e4b5b0fe3b085682a3";
-
-
-
-
-
 
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         byte[] hashedString = messageDigest.digest(splitTransactionHashData.getBytes());

@@ -4,18 +4,7 @@ import java.util.ArrayList;
 
 public class Block {
 
-/*    Index: integer (unsigned)
-    Transactions: Transaction[]
-    Difficulty: integer (unsigned)
-    PrevBlockHash: hex_number[64]
-    MinedBy: address (40 hex digits)
-    BlockDataHash: hex_number[64]
-    Nonce: integer (unsigned)
-    DateCreated: ISO8601_string
-    BlockHash: hex_number[64]*/
-
     private int index;
-
     private ArrayList<Transaction> transaction;
     private int difficulty;
     private String prevBlockHash;
@@ -25,8 +14,6 @@ public class Block {
     private String dateCreated;
     private  String blockHash;
     private String [] pendingTransactions;
-
-
 
 
 public Block () {}

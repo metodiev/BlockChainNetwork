@@ -2,34 +2,20 @@ package com.blockchain.node.core;
 
 
 import com.blockchain.node.data.Transaction;
-import com.blockchain.node.staticdata.TransactionStaticData;
 import com.google.gson.Gson;
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1Integer;
-import org.bouncycastle.asn1.DLSequence;
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
-import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.params.ECDomainParameters;
-import org.bouncycastle.crypto.params.ECPublicKeyParameters;
-import org.bouncycastle.crypto.signers.DSAKCalculator;
-import org.bouncycastle.crypto.signers.ECDSASigner;
-import org.bouncycastle.crypto.signers.HMacDSAKCalculator;
-import org.bouncycastle.math.ec.ECPoint;
 import org.bouncycastle.util.encoders.Hex;
-import org.web3j.crypto.Hash;
+
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SignatureException;
 import java.util.ArrayList;
-
-import static com.blockchain.node.core.Test.encodeECPointHexCompressed;
 import static com.sun.xml.internal.messaging.saaj.packaging.mime.util.ASCIIUtility.getBytes;
 
 /*
@@ -95,7 +81,7 @@ public class NodeReceiveVerifySend {
     private boolean checkBalance(){
         return true;
     }
-    private boolean verifyTransaction(Transaction transaction) throws UnsupportedEncodingException, SignatureException {
+    public boolean verifyTransaction(Transaction transaction) throws UnsupportedEncodingException, SignatureException {
 
         boolean isValidDataHash = verifyTxHash(transaction,transaction.getTransactionDataHash());
         boolean isValidPubKey =  verifyPubKey(transaction,transaction.getSenderPubkey());

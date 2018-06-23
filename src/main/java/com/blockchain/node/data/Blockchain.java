@@ -2,16 +2,10 @@ package com.blockchain.node.data;
 
 public class Blockchain {
 
-   /* Blocks: Block[]
-    PendingTransactions: Transaction[]
-    CurrentDifficulty: integer
-    MiningJobs: map(blockDataHash → Block)*/
-
     private Block[] blocks;
     private Transaction[] pendingTransactions;
     private int currentDifficulty;
     //TODO finish miningJobs data field
-
 
     public Blockchain(Block[] blocks, Transaction[] pendingTransactions, int currentDifficulty) {
         this.blocks = blocks;

@@ -9,17 +9,7 @@ import java.util.List;
 
 public class CoinBaseTransaction {
 
-
- /*"from": "0000000000000000000000000000000000000000",
-         "to": "9a9f082f37270ff54c5ca4204a0e4da6951fe917",
-         "value": 5000350, "fee": 0,
-          "dateCreated":
-         "2018-02-10T17:53:48.972Z",
-         "data": "coinbase tx",
-         "senderPubKey": "000000000000000000000000000000000000…0000",
-         "transactionDataHash": "4dfc3e0ef89ed603ed54e47435a18b…176a",
-         "senderSignature": ["0000000000…0000", "0000000000…0000"],
-         "minedInBlockIndex": 35,*/
+    //TODO finish the Fee logic for miners
 
   private static List<Transaction> coinBaseTransactions = new ArrayList<Transaction>();
 

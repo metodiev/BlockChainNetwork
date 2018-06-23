@@ -7,4 +7,5 @@ public class NodeData {
      private  String selfURL ;
      private String peers ;
      private LinkedList <Block> chain;
+     //TODO
 }

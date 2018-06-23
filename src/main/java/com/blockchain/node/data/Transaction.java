@@ -2,18 +2,6 @@ package com.blockchain.node.data;
 
 public class Transaction {
 
- /*   From: address (40 hex digits)
-  To: address (40 hex digits)
-    Value: integer (non-negative)
-    Fee: integer (non-negative)
-    DateCreated: ISO8601_string
-    Data: string (optional)
-    SenderPubKey: hex_number[65]
-    TransactionDataHash: hex_number
-    SenderSignature: hex_number[2][64]
-    inedInBlockIndex: integer / null TransferSuccessful: bool*/
-
-
     private String fromAddress;
     private String toAddress;
     private long value;

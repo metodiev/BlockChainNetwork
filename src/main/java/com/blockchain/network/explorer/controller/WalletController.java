@@ -42,14 +42,8 @@ public class WalletController {
             WalletConnector walletConnector = new WalletConnector();
             walletConnector.implementWallet(fee, from, senderPubKey, to, value, dataOptional);
         }
-
-
-
         return jsonData;
     }
-
-
-
 
     @RequestMapping(value = "/createWallet", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +64,6 @@ public class WalletController {
     //-after the signing the signature and txData should be appended to the TX and we can send it to the NODE
 
     public boolean validateJsonWallet(String jsonData){
-
 
         JSONObject data = (JSONObject)JSONValue.parse(jsonData);
         String from = (String)data.get("from").toString().replace(" ", "");
@@ -94,8 +87,6 @@ public class WalletController {
         }
 
         boolean isValid = false;
-
-
 
     return isValid;
     }

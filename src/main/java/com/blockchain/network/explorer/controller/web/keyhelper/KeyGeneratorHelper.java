@@ -1,4 +1,4 @@
-package com.blockchain.network.explorer.controller.web;
+package com.blockchain.network.explorer.controller.web.keyhelper;
 
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
@@ -42,7 +42,7 @@ public class KeyGeneratorHelper {
         return BytesToHex(result);
     }
 
-    private AsymmetricCipherKeyPair generateRandomKeys() {
+    public AsymmetricCipherKeyPair generateRandomKeys() {
         ECKeyPairGenerator gen = new ECKeyPairGenerator();
         SecureRandom secureRandom = new SecureRandom();
         KeyGenerationParameters keyGenParam = new ECKeyGenerationParameters(Domain, secureRandom);

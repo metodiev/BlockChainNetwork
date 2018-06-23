@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.security.SignatureException;
 
 @RestController
 @Controller
@@ -24,7 +25,7 @@ public class TransactionController {
     @RequestMapping(value = "/transactions/pending", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String getJsonPendingTransaction (@RequestBody String  jsonData) throws UnsupportedEncodingException {
+    public String getJsonPendingTransaction (@RequestBody String  jsonData) throws UnsupportedEncodingException, SignatureException {
         GetJSONData json = new GetJSONData();
 
         if (addNewPendingTransaction(jsonData)){
@@ -35,7 +36,7 @@ public class TransactionController {
         }
     }
 
-    private  boolean addNewPendingTransaction(String jsonData) throws UnsupportedEncodingException {
+    private  boolean addNewPendingTransaction(String jsonData) throws UnsupportedEncodingException, SignatureException {
 
         JSONObject JSONdata = (JSONObject)JSONValue.parse(jsonData);
 
@@ -73,9 +74,9 @@ public class TransactionController {
 
     }
 
-    private boolean transactionSingAndVerify(Transaction transaction) throws UnsupportedEncodingException {
+    private boolean transactionSingAndVerify(Transaction transaction) throws UnsupportedEncodingException, SignatureException {
         NodeReceiveVerifySend nodeReceiveVerifySend = new NodeReceiveVerifySend();
-        boolean isValidTransaction = nodeReceiveVerifySend.verifyAndSendTransaction(transaction);
+        boolean isValidTransaction = nodeReceiveVerifySend.verifyTransaction(transaction);
 
         return isValidTransaction;
     }
@@ -84,23 +85,6 @@ public class TransactionController {
     @RequestMapping("/transaction/pending")
     public JsonArray pendingTransaction() {
 
-             /*  [{
-
-"from": "44fe0696beb6e24541cc0e8728276c9ec3af2675",
-
-"to": "9a9f082f37270ff54c5ca4204a0e4da6951fe917",
-
-"value": 25000, "fee": 10,
-
-"dateCreated": "2018-02-10T17:53:48.972Z", "data": "…",
-
-"senderPubKey": "2a1d79fb8743d0a4a8501e0028079bcf82a4f…eae1",
-
-"transactionDataHash": "4dfc3e0ef89ed603ed54e47435a18…176a",
-
-"senderSignature": ["e20c…a3c29df79f", "cf92…0acd0c2ffe56"]
-
-},*/
 
         JsonObject jsonObjectNode = new JsonObject();
 
@@ -114,17 +98,12 @@ public class TransactionController {
         jsonObjectNode.addProperty("senderPubKey", "T4dfc3e0ef89ed603ed54e47435a18");
         jsonObjectNode.addProperty("transactionDataHash", "4dfc3e0ef89ed603ed54e47435a18");
 
-
-
         JsonArray valueArray=new JsonArray();
 
             JsonObject jsonPropValue=new JsonObject();
             jsonPropValue.addProperty("id", "asdfasdfasdfasd32324");
             jsonPropValue.addProperty("propValue","asdfasdfasdf");
             valueArray.add(jsonPropValue);
-
-
-        //jsonObjectNode.getAsJsonArray(valueArray.get(1).getAsString());
 
         Gson gson = new Gson();
         String transactionJson = gson.toJson(jsonObjectNode);
@@ -136,11 +115,8 @@ public class TransactionController {
 
 
     public boolean validateJsonWallet(){
-
+//TODO finish the validateJsonwallet implementation
         boolean isValid = false;
-
-
-
         return isValid;
     }
 

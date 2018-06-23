@@ -31,20 +31,11 @@ li a {
     <li><a href="createwallet">Create New Wallet</a></li>
     <li><a href="openwallet">Open Existing Wallet</a></li>
     <li><a href="account">Account</a></li>
-    <li><a href="ballance">Ballance</a></li>
     <li><a href="sendtransaction">Send Transaction</a></li>
 </ul>
 
-<h1>Form</h1>
-<form action="#" th:action="@{/wallet/sendtransaction}" th:object="${wallet}" method="post">
-    <p>Id: <input type="text" th:field="*{from}" /></p>
-    <p>Message: <input type="text" th:field="*{to}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+<h1>Send Transaction Form</h1>
 
-<!--<p th:text="'id: ' + ${wallet.from}" />
-<p th:text="'content: ' + ${wallet.to}" />
-<a href="/wallet/sendtransaction">Submit another message</a>-->
 
 </body>
 </html>

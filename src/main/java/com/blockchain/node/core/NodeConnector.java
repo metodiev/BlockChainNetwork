@@ -2,7 +2,6 @@ package com.blockchain.node.core;
 
 import com.blockchain.node.data.Block;
 import com.blockchain.node.data.Node;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

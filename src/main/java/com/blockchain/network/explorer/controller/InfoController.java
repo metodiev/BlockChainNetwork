@@ -3,7 +3,6 @@ package com.blockchain.network.explorer.controller;
 
 import com.blockchain.node.data.Node;
 import com.blockchain.node.data.Transaction;
-import com.blockchain.node.staticdata.NodeStaticData;
 import com.google.gson.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,32 +17,10 @@ import java.util.UUID;
 public class InfoController  {
 
 
-  /*  { "about": "SoftUniChain/0.9-csharp",
-
-            "nodeId": "1a22d3…9b2f",
-             chainId: "c6da93eb…c47f",
-            "nodeUrl": "http://chain-node-03.herokuapp.com",
-            "peers": 2, "currentDifficulty": 5,
-            "blocksCount": 25, "cumulativeDifficulty": 127
-        "confirmedTransactions": 208, "pendingTransactions": 7
-
-    }*/
-
     @RequestMapping("/info")
     public String info() {
         LinkedList<Node> info = new LinkedList<Node>();
 
-     /*   for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
-
-            Node node = new Node();
-            node.setBlocks(NodeStaticData.nodes.get(i).getBlocks());
-            node.setNodeId(NodeStaticData.nodes.get(i).getNodeId());
-            node.setPeers(NodeStaticData.nodes.get(i).getPeers());
-            node.setSelfUrl(NodeStaticData.nodes.get(i).getSelfUrl());
-
-            System.out.println(NodeStaticData.nodes.get(i).getBlocks());
-            info.add(node);
-        }*/
 
         JsonObject jsonObjectNode = new JsonObject();
 
@@ -67,21 +44,6 @@ public class InfoController  {
         jsonObjectNode.addProperty("pendingTransactions", 7);
 
 
-        for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
-
-           /* Node node = new Node();
-            node.setBlocks(NodeStaticData.nodes.get(i).getBlocks());
-            node.setNodeId(NodeStaticData.nodes.get(i).getNodeId());
-            node.setPeers(NodeStaticData.nodes.get(i).getPeers());
-            node.setSelfUrl(NodeStaticData.nodes.get(i).getSelfUrl());
-
-            System.out.println(NodeStaticData.nodes.get(i).getBlocks());
-            info.add(node);*/
-
-
-            //jsonObjectNode.put("blocks", NodeStaticData.nodes.get(i).getBlocks().get(i).getBlockDataHash());
-        }
-
         Transaction tranSigned = new Transaction();
         tranSigned.setToAddress("asd");
         tranSigned.setFromAddress("asd");
@@ -100,7 +62,4 @@ public class InfoController  {
 
         return signedTranJson;
     }
-
-
-
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 public class GetJSONData {
+    //TODO delete this block if it is not used anywhere
 
     /***
      *

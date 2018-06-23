@@ -2,7 +2,6 @@ package com.blockchain.node.core;
 
 import com.blockchain.node.data.Block;
 import com.blockchain.node.data.Transaction;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public class BlockConnector {
         //TO DO genesisBlock.setBlockHash("");
         genesisBlock.setNonce(0);
         genesisBlock.setDateCreated(DateFormat.getDateInstance().toString());
-        //TO DOgenesisBlock.setBlockHash("");
+        //TO DO genesisBlock.setBlockHash("");
 
         return genesisBlock;
     }
@@ -53,8 +52,6 @@ public class BlockConnector {
         newBlock.setPrevBlockHash(previousBlockHash);
         newBlock.setIndex(index + 1);
         return newBlock;
-
-
     }
 
 }

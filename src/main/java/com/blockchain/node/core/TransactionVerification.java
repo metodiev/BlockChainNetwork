@@ -110,6 +110,8 @@ public class TransactionVerification {
      * @return
      */
     public boolean isValidTransactionInput(Transaction transaction) {
+        //TODO validate transaction here and choose where to
+        // validate pending and confirmed - This should be in node maybe
         boolean isValid = true;
       /*  if (!Character.isDigit(transaction.getInedInBlockIndex())) {
 

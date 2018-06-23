@@ -6,19 +6,6 @@ import java.util.Map;
 
 public class Node {
 
-
-
-
-    /*
-      *
-      *
-    * */
-   /* NodeId: unique_string
-    SelfUrl: URL
-    Peers: map(nodeId  URL)
-    Chain: Blockchain
-    REST Endpoints*/
-
    private String nodeId;
    private String selfUrl;
    private Map<String, String> peers;
@@ -26,9 +13,10 @@ public class Node {
    private ArrayList<String> restEndPoints;
 
 
-public  Node(){
+    public  Node(){
 
-}
+    }
+
     public Node(String nodeId, String selfUrl, Map<String, String> peers, List<Block> blocks) {
         this.nodeId = nodeId;
         this.selfUrl = selfUrl;

@@ -57,7 +57,7 @@ public class TransactionConnector {
         transaction.setDateCreated(DateFormat.getDateInstance().toString());
         transaction.setSenderPubkey(toAddress);
         transaction.setTransactionDataHash(transactionDataHash);
-        //TO DO WHAT IS THAT HASH
+        //TO DO  WHAT IS THAT HASH
         transaction.setSenderSignature(senderSignature);
         transaction.setrValue(r);
         transaction.setsValue(s);

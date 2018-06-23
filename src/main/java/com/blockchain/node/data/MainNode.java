@@ -1,10 +1,7 @@
 package com.blockchain.node.data;
 
-import com.blockchain.node.core.BlockConnector;
 
 public class MainNode {
 
-
-
-
+//TODO finish Genesis block and the mining data implementation
 }

@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-public class HomeController {
+public class AccountBallanceController {
 
-    @RequestMapping("/wallet/home")
-    public String home(Map<String, Object> model) {
-        return "home";
+    @RequestMapping("/wallet/account")
+    public String account(Map<String, Object> model) {
+        return "account";
     }
 }

@@ -15,33 +15,9 @@ import java.util.UUID;
 @RestController
 public class DebugController {
 
-  /*  "selfUrl": "http://localhost:5555",
-   "peers": { … },
-            "chain": {
-        "blocks": [{"index": 0, "transactions":[…], "difficulty": 0,
-                "prevBlockHash": "d9…9c", "minedBy": "af…b2", "nonce": 0,
-                "blockDataHash": "af25…d9", "dateCreated": "2018-01-…"},
-        "blockHash": "c962…a8"}, {…}, {…}],
-            "pendingTransactions": [{…}, …], "currentDifficulty": 5,
-            "miningJobs": {"e3d8…5f": {…}, "25c1…a8": {…}, }
-}, "confirmedBalances": {"2a7e…cf": 500020, … }*/
-
     @RequestMapping("/debug")
     public String debug() {
         LinkedList<Node> info = new LinkedList<Node>();
-
-
-     /*   for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
-
-            Node node = new Node();
-            node.setBlocks(NodeStaticData.nodes.get(i).getBlocks());
-            node.setNodeId(NodeStaticData.nodes.get(i).getNodeId());
-            node.setPeers(NodeStaticData.nodes.get(i).getPeers());
-            node.setSelfUrl(NodeStaticData.nodes.get(i).getSelfUrl());
-
-            System.out.println(NodeStaticData.nodes.get(i).getBlocks());
-            info.add(node);
-        }*/
 
         JsonObject jsonObjectNode = new JsonObject();
 
@@ -64,21 +40,6 @@ public class DebugController {
         jsonObjectNode.addProperty("confirmedTransactions", 208);
         jsonObjectNode.addProperty("pendingTransactions", 7);
 
-
-        for (int i = 0; i < NodeStaticData.nodes.size(); i++) {
-
-           /* Node node = new Node();
-            node.setBlocks(NodeStaticData.nodes.get(i).getBlocks());
-            node.setNodeId(NodeStaticData.nodes.get(i).getNodeId());
-            node.setPeers(NodeStaticData.nodes.get(i).getPeers());
-            node.setSelfUrl(NodeStaticData.nodes.get(i).getSelfUrl());
-
-            System.out.println(NodeStaticData.nodes.get(i).getBlocks());
-            info.add(node);*/
-
-
-            //jsonObjectNode.put("blocks", NodeStaticData.nodes.get(i).getBlocks().get(i).getBlockDataHash());
-        }
 
         Transaction tranSigned = new Transaction();
         tranSigned.setToAddress("asd");
@@ -108,7 +69,6 @@ public class DebugController {
 
         JsonObject jsonObjectNode = new JsonObject();
 
-
         //generate the JSON logic
         jsonObjectNode.addProperty("message", "The chain is resete");
         Gson gson = new Gson();
@@ -119,5 +79,4 @@ public class DebugController {
         return debugJson;
 
     }
-
 }

@@ -7,14 +7,6 @@ import java.math.BigInteger;
 
 public class Wallet {
 
-
-
-   /* { "from": "c3293572dbe6ebc60de4a20ed0e21446cae66b17",
-            "to": "f51362b7351ef62253a227a77751ad9b2302f911",
-            "value": 25000, "fee": 10, "dateCreated": "2018-02-10T17:53:48.972Z",
-            "senderPubKey": "c74a8458cd7a7e48f4b7ae6f4ae9f56c5c88c0f03e7…bba1"
-    }*/
-
     private String from;
     private String to;
     private long value;
@@ -23,13 +15,11 @@ public class Wallet {
     private String senderPubKey;
     private String data;
 
-    //TODO
-
     private String transactionDataHash;
     private BigInteger privKey = new BigInteger("97ddae0f3a25b92268175400149d65d6887b9cefaf28ea2c078e05cdc15a3c0a", 16);
     private BigInteger pubKey = Sign.publicKeyFromPrivate(privKey);
     private ECKeyPair keyPair = new ECKeyPair(privKey, pubKey);
-    //TO do generate the private key
+    //TODO generate real  private key from Wallet
 
 
     public Wallet() {
