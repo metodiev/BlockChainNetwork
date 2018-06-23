@@ -88,14 +88,10 @@ public class CreateNewWalletController {
         AsymmetricCipherKeyPair keyPair = generateRandomKeys();
         BigInteger privateKey = (((ECPrivateKeyParameters) keyPair.getPrivate()).getD());
 
-
-
         ECPoint pubKey = getPublicKeyFromPrivateKey(privateKey);
         String pubKeyCompressed = encodeECPointHexCompressed(pubKey);
 
-
         String addr = calcRipeMD160(pubKeyCompressed);
-
 
         model.addAttribute("privatekey", privateKey.toString(16));
         model.addAttribute("publickey", pubKey);
