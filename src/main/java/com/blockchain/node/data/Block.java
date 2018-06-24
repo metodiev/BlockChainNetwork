@@ -1,6 +1,7 @@
 package com.blockchain.node.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Block {
 
@@ -12,12 +13,14 @@ public class Block {
     private String BlockDataHash;
     private int nonce;
     private String dateCreated;
-    private  String blockHash;
-    private String [] pendingTransactions;
+    private String blockHash;
+    private String[] pendingTransactions;
 
+    //empty constructor
+    public Block() {
+    }
 
-public Block () {}
-
+    //full impelemnted constructor
     public Block(int index, ArrayList<Transaction> transaction, int difficulty, String prevBlockHash, String minedBy, String blockDataHash, int nonce, String dateCreated, String blockHash, String[] pendingTransactions) {
         this.index = index;
         this.transaction = transaction;
@@ -29,6 +32,18 @@ public Block () {}
         this.dateCreated = dateCreated;
         this.blockHash = blockHash;
         this.pendingTransactions = pendingTransactions;
+
+        Object[] contens = {transaction.hashCode(), prevBlockHash};
+        this.blockHash = String.valueOf(Arrays.hashCode(contens));
+    }
+
+    //Separate transaction
+    public Block(ArrayList<Transaction> transaction, String prevBlockHash) {
+
+        this.transaction = transaction;
+        this.prevBlockHash = prevBlockHash;
+        Object[] contens = {transaction.hashCode(), prevBlockHash};
+        this.blockHash = String.valueOf(Arrays.hashCode(contens));
     }
 
 
