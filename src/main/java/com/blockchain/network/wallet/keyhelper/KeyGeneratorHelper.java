@@ -1,4 +1,4 @@
-package com.blockchain.network.explorer.controller.web.keyhelper;
+package com.blockchain.network.wallet.keyhelper;
 
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;

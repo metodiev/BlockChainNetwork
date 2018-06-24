@@ -1,7 +1,6 @@
-package com.blockchain.network.explorer.controller.web;
+package com.blockchain.network.wallet;
 
 import com.blockchain.node.data.Transaction;
-import com.blockchain.node.data.Wallet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.blockchain.network.explorer.controller.web;
+package com.blockchain.network.wallet;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

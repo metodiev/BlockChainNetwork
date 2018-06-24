@@ -1,6 +1,6 @@
-package com.blockchain.network.explorer.controller.web;
+package com.blockchain.network.wallet;
 
-import com.blockchain.network.explorer.controller.web.keyhelper.KeyGeneratorHelper;
+import com.blockchain.network.wallet.keyhelper.KeyGeneratorHelper;
 import com.blockchain.node.data.Wallet;
 import org.bouncycastle.math.ec.ECPoint;
 import org.springframework.stereotype.Controller;

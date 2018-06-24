@@ -1,7 +1,7 @@
-package com.blockchain.network.explorer.controller.web;
+package com.blockchain.network.wallet;
 
 
-import com.blockchain.network.explorer.controller.web.keyhelper.KeyGeneratorHelper;
+import com.blockchain.network.wallet.keyhelper.KeyGeneratorHelper;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
 import org.bouncycastle.math.ec.ECPoint;
